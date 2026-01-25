@@ -1,5 +1,6 @@
 package ${packageName}.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollStreamUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -7,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.clt.matlink.common.domain.form.PageQuery;
 import com.clt.matlink.common.domain.vo.PageInfo;
 import com.clt.matlink.common.enums.DelFlagEnum;
-import com.clt.matlink.common.security.LoginHelper;
 import ${packageName}.domain.entity.${ClassName};
 import ${packageName}.domain.form.${ClassName}Form;
 import ${packageName}.domain.vo.${ClassName}Vo;
