@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 <#if tableAnnotation??>
-    /**
-    *  ${tableAnnotation}
-    */
+/**
+*  ${tableAnnotation}
+*/
 <#else>
-    /**
-    *  ${ClassName}
-    */
+/**
+*  ${ClassName}
+*/
 </#if>
 @RequestMapping("/${className}")
 @RestController

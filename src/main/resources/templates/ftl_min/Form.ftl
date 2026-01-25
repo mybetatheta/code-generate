@@ -8,10 +8,10 @@ import java.util.List;
 /**
 * ${tableAnnotation}查询参数
 <#if author??>
-    * @author ${author}
+* @author ${author}
 </#if>
 <#if date??>
-    * @date ${date}
+* @date ${date}
 </#if>
 */
 @Data
