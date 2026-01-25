@@ -33,9 +33,9 @@ import java.util.Set;
  */
 public class MultiCodeGenerateMinUtils {
 
-    private final String AUTHOR = "zy";
+    private final String AUTHOR = "min";
     private final String CURRENT_DATE = DateUtil.formatDateTime(DateTime.now());
-    private final String URL = "jdbc:mysql://127.0.0.1:3306/zchg_wangjing?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true";
+    private final String URL = "jdbc:mysql://127.0.0.1:3306/matlink_db?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true";
     private final String USER = "root";
     private final String PASSWORD = "root";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -48,7 +48,7 @@ public class MultiCodeGenerateMinUtils {
     private boolean genBaseModel = false;
 
     /** 要生成代码的表名，多个用逗号分隔 */
-    private String tableNames = "resource_visit_user";
+    private String tableNames = "clt_material_task,clt_material_task_detail";
 
     private String packageFolder = coverPackage2Folder(packageName);
 
