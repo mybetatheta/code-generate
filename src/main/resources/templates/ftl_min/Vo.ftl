@@ -1,5 +1,19 @@
-package ${packageName}.entity;
+package ${packageName}.domain.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+<#-- 导入BigDecimal -->
+<#assign hasBigDecimal = false>
+<#list tableColumns as column>
+    <#if column.fieldType == "BigDecimal">
+        <#assign hasBigDecimal = true>
+        <#break>
+    </#if>
+</#list>
+<#if hasBigDecimal>
+import java.math.BigDecimal;
+</#if>
 <#-- 智能导入日期类 -->
 <#assign dateImports = []>
 <#list tableColumns as column>
@@ -22,50 +36,20 @@ package ${packageName}.entity;
     </#if>
 </#list>
 <#list dateImports as import>
-    import ${import};
+import ${import};
 </#list>
-
-<#-- 导入BigDecimal -->
-<#assign hasBigDecimal = false>
-<#list tableColumns as column>
-    <#if column.fieldType == "BigDecimal">
-        <#assign hasBigDecimal = true>
-        <#break>
-    </#if>
-</#list>
-<#if hasBigDecimal>
-    import java.math.BigDecimal;
-</#if>
-
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
 
 /**
  *
- * ${tableAnnotation}实体类
+ * ${tableAnnotation}Vo
  */
-@Entity
-@Table(name = "${upperCaseTableName}")
 @Data
 @Schema(description = "${tableAnnotation}")
-public class ${ClassName} {
+public class ${ClassName}Vo {
 
 <#if genBaseModel==false>
 <#list tableColumns as model>
-<#if model_index==0>
-<#if model.camelCaseColumnName=="id">
-    @Id
-</#if>
-</#if>
-<#if model.camelCaseColumnName!="id">
-</#if>
     @Schema(description = "${model.columnComment}")
-    @Column(name = "${model.upperCaseWithUnderscoreColumnName}",
-    nullable = false)
 	private ${model.fieldType} ${model.camelCaseColumnName?uncap_first};
 </#list>
 

@@ -35,7 +35,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ${ClassName}Controller {
 
-    private final ${ClassName}Service ${className}Service;
+    private final ${ClassName}Service ${classNameLower}Service;
 
     @Operation(summary = "分页查询")
     @GetMapping("/page")

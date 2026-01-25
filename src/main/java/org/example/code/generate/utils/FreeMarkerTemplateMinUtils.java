@@ -1,4 +1,4 @@
-package org.example.code.generate;
+package org.example.code.generate.utils;
 
 import com.google.common.util.concurrent.UncheckedExecutionException;
 import freemarker.cache.ClassTemplateLoader;
@@ -15,14 +15,14 @@ import java.util.Map;
 /**
  * Created by Ay on 2016/7/27.
  */
-public class FreeMarkerTemplatePlatform3Utils {
+public class FreeMarkerTemplateMinUtils {
 
-    private FreeMarkerTemplatePlatform3Utils(){}
+    private FreeMarkerTemplateMinUtils(){}
     private static final Configuration CONFIGURATION = new Configuration(Configuration.VERSION_2_3_22);
 
     static{
         //这里比较重要，用来指定加载模板所在的路径
-    	CONFIGURATION.setTemplateLoader(new ClassTemplateLoader(FreeMarkerTemplatePlatform3Utils.class, "/templates/mapperbase_ftl_ex_platform3"));
+    	CONFIGURATION.setTemplateLoader(new ClassTemplateLoader(FreeMarkerTemplateMinUtils.class, "/templates/ftl_min"));
         CONFIGURATION.setDefaultEncoding("UTF-8");
         CONFIGURATION.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         CONFIGURATION.setCacheStorage(NullCacheStorage.INSTANCE);

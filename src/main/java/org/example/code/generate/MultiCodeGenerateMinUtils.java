@@ -6,7 +6,7 @@ import org.dromara.hutool.core.date.DateUtil;
 import org.dromara.hutool.core.regex.ReUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.example.code.generate.domain.GenTableColumn;
-import org.example.code.generate.utils.FreeMarkerTemplatePlatform3Utils;
+import org.example.code.generate.utils.FreeMarkerTemplateMinUtils;
 import org.example.code.generate.utils.StringUtils;
 
 import java.io.BufferedWriter;
@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * 代码生成器 - 优化版
  */
-public class MultiCodeGeneratePlatform3Utils {
+public class MultiCodeGenerateMinUtils {
 
     private final String AUTHOR = "zy";
     private final String CURRENT_DATE = DateUtil.formatDateTime(DateTime.now());
@@ -40,7 +40,7 @@ public class MultiCodeGeneratePlatform3Utils {
     private final String PASSWORD = "root";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String diskPath = "D://test/";
-    private final String packageName = "com.zchg.platform.service.center.visitor.management";
+    private final String packageName = "com.clt.matlink.modules.test";
 
     /** 是否生成目录结构 */
     private boolean genFolder = true;
@@ -68,7 +68,7 @@ public class MultiCodeGeneratePlatform3Utils {
     }
 
     public static void main(String[] args) throws Exception {
-        MultiCodeGeneratePlatform3Utils codeGenerateUtils = new MultiCodeGeneratePlatform3Utils();
+        MultiCodeGenerateMinUtils codeGenerateUtils = new MultiCodeGenerateMinUtils();
         codeGenerateUtils.generate();
     }
 
@@ -140,9 +140,9 @@ public class MultiCodeGeneratePlatform3Utils {
 
         // 生成各种文件
         generateEntityFile(dataMap);
-        generateDtoFile(dataMap);
-        generateQueryFile(dataMap);  // 新增：生成Query类
-        generateDaoFile(dataMap);
+        generateVoFile(dataMap);
+        generateFormFile(dataMap);  // 新增：生成Query类
+        generateMapperFile(dataMap);
         generateServiceInterfaceFile(dataMap);
         generateServiceImplFile(dataMap);
         generateControllerFile(dataMap);
@@ -448,7 +448,7 @@ public class MultiCodeGeneratePlatform3Utils {
      * 生成实体类文件
      */
     private void generateEntityFile(Map<String, Object> dataMap) throws Exception {
-        String folderPath = genFolder ? packageFolder + "/entity/" : "";
+        String folderPath = genFolder ? packageFolder + "/domain/entity/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
@@ -459,45 +459,45 @@ public class MultiCodeGeneratePlatform3Utils {
     }
 
     /**
-     * 生成 DTO 文件
+     * 生成 Vo 文件
      */
-    private void generateDtoFile(Map<String, Object> dataMap) throws Exception {
-        String folderPath = genFolder ? packageFolder + "/dto/" : "";
+    private void generateVoFile(Map<String, Object> dataMap) throws Exception {
+        String folderPath = genFolder ? packageFolder + "/domain/vo/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
-        String path = diskPath + folderPath + className + "DTO.java";
+        String path = diskPath + folderPath + className + "Vo.java";
 
-        generateFileByTemplate("DTO.ftl", new File(path), dataMap);
-        System.out.println("生成 DTO: " + className + "DTO.java");
+        generateFileByTemplate("Vo.ftl", new File(path), dataMap);
+        System.out.println("生成 Vo: " + className + "Vo.java");
     }
 
     /**
-     * 生成 Query 查询类文件
+     * 生成 Form 查询类文件
      */
-    private void generateQueryFile(Map<String, Object> dataMap) throws Exception {
-        String folderPath = genFolder ? packageFolder + "/dto/" : "";
+    private void generateFormFile(Map<String, Object> dataMap) throws Exception {
+        String folderPath = genFolder ? packageFolder + "/domain/form/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
-        String path = diskPath + folderPath + className + "Query.java";
+        String path = diskPath + folderPath + className + "Form.java";
 
-        generateFileByTemplate("Query.ftl", new File(path), dataMap);
-        System.out.println("生成 Query 类: " + className + "Query.java");
+        generateFileByTemplate("Form.ftl", new File(path), dataMap);
+        System.out.println("生成 Form 类: " + className + "From.java");
     }
 
     /**
-     * 生成 DAO/Repository 文件
+     * 生成 DAO/Mapper/Repository 文件
      */
-    private void generateDaoFile(Map<String, Object> dataMap) throws Exception {
-        String folderPath = genFolder ? packageFolder + "/dao/" : "";
+    private void generateMapperFile(Map<String, Object> dataMap) throws Exception {
+        String folderPath = genFolder ? packageFolder + "/mapper/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
-        String path = diskPath + folderPath + className + "Repository.java";
+        String path = diskPath + folderPath + className + "Mapper.java";
 
-        generateFileByTemplate("DAO.ftl", new File(path), dataMap);
-        System.out.println("生成 Repository: " + className + "Repository.java");
+        generateFileByTemplate("Mapper.ftl", new File(path), dataMap);
+        System.out.println("生成 Mapper: " + className + "Mapper.java");
     }
 
     /**
@@ -518,7 +518,7 @@ public class MultiCodeGeneratePlatform3Utils {
      * 生成 Service 实现文件
      */
     private void generateServiceImplFile(Map<String, Object> dataMap) throws Exception {
-        String folderPath = genFolder ? packageFolder + "/impl/" : "";
+        String folderPath = genFolder ? packageFolder + "/service/impl/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
@@ -547,7 +547,7 @@ public class MultiCodeGeneratePlatform3Utils {
      */
     private void generateFileByTemplate(final String templateName, File file,
                                         Map<String, Object> dataMap) throws Exception {
-        Template template = FreeMarkerTemplatePlatform3Utils.getTemplate(templateName);
+        Template template = FreeMarkerTemplateMinUtils.getTemplate(templateName);
 
         try (FileOutputStream fos = new FileOutputStream(file);
              Writer out = new BufferedWriter(new OutputStreamWriter(fos, "utf-8"), 10240)) {

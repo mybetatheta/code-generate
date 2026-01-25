@@ -1,4 +1,4 @@
-package org.example.code.generate;
+package org.example.code.generate.domain;
 
 import lombok.Data;
 

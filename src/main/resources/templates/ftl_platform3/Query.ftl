@@ -1,4 +1,4 @@
-package ${packageName}.query;
+package ${packageName}.dto;
 
 import com.zchg.platform.common.core.annotation.HyQuery;
 import com.zchg.platform.common.core.group.GetPageGroup;
@@ -23,7 +23,7 @@ public class ${ClassName}Query {
 
     @HyQuery
     @Schema(description = "ID")
-    private List<Long> id;
+    private Long id;
 
     @HyQuery(type = HyQuery.Type.IN, propName = "id")
     @Schema(description = "ID列表（批量查询）")
