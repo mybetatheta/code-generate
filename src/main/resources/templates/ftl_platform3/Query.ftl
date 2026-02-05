@@ -11,11 +11,11 @@ import java.util.List;
 /**
 * ${tableAnnotation}查询参数
 <#if author??>
-    * @author ${author}
+* @author ${author}
 </#if>
-<#if date??>
-    * @date ${date}
-</#if>
+<#--<#if date??>-->
+<#--    * @date ${date}-->
+<#--</#if>-->
 */
 @Data
 @Schema(description = "${tableAnnotation}查询参数")

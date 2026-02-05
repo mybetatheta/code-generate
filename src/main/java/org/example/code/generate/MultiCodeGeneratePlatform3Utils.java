@@ -35,12 +35,13 @@ public class MultiCodeGeneratePlatform3Utils {
 
     private final String AUTHOR = "zy";
     private final String CURRENT_DATE = DateUtil.formatDateTime(DateTime.now());
-    private final String URL = "jdbc:mysql://127.0.0.1:3306/zchg_wangjing?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true";
+//    private final String URL = "jdbc:mysql://127.0.0.1:3306/zchg_wangjing?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true";
+    private final String URL = "jdbc:mysql://127.0.0.1:8806/t200001?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true";
     private final String USER = "root";
     private final String PASSWORD = "root";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String diskPath = "D://test/";
-    private final String packageName = "com.zchg.platform.service.center.visitor.management";
+    private final String packageName = "com.zchg.platform.service.center.common.user";
 
     /** 是否生成目录结构 */
     private boolean genFolder = true;
@@ -48,7 +49,7 @@ public class MultiCodeGeneratePlatform3Utils {
     private boolean genBaseModel = false;
 
     /** 要生成代码的表名，多个用逗号分隔 */
-    private String tableNames = "resource_visit_user";
+    private String tableNames = "hy_department_space_relation";
 
     private String packageFolder = coverPackage2Folder(packageName);
 
