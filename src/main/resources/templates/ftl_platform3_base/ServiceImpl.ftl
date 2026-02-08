@@ -104,8 +104,10 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     @Override
     public ${ClassName}Base save(${ClassName}Base base) {
+        if (base.getId() == null) {
+            base.setId(idGenerator.nextId());
+        }
         ${ClassName} entity = BeanUtil.copyProperties(base, ${ClassName}.class);
-        entity.setId(idGenerator.nextId());
         repository.save(entity);
         return BeanUtil.copyProperties(entity, ${ClassName}Base.class);
     }
