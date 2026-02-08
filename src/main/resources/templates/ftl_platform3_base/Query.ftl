@@ -29,6 +29,14 @@ public class ${ClassName}Query {
     @Schema(description = "ID列表（批量查询）")
     private List<Long> ids;
 
+    //@HyQuery
+    //@Schema(description = "projectId")
+    //private Long projectId;
+
+    //@HyQuery
+    //@Schema(description = "flag", hidden = true)
+    //private Integer flag = 0;
+
     @NotNull(message = "页码不能为空", groups = GetPageGroup.class)
     @Schema(description = "第几页，从 0 开始")
     private Integer page = 0;

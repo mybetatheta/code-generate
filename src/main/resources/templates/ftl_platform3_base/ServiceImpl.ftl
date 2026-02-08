@@ -67,6 +67,13 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         return results;
     }
 
+    @Override
+    public List<${ClassName}VO> listByIds(List<Long> ids) {
+        ${ClassName}Query query = new ${ClassName}Query();
+        query.setIds(ids);
+        return list(query);
+    }
+
     private Specification<${ClassName}> getSpecification(${ClassName}Query query) {
 
         // 1. 自动生成的条件（来自 QueryHelp）
@@ -113,6 +120,18 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<${ClassName}Base> saveBatch(List<${ClassName}Base> list) {
+        List<${ClassName}Base> resList = Lists.newArrayList();
+        for (${ClassName}Base detailBase : list) {
+            ${ClassName}Base save = AopProxyTargetUtils.getProxy(this)
+                    .save(detailBase);
+            resList.add(save);
+        }
+        return resList;
+    }
+
+    @Override
     public ${ClassName}Base update(${ClassName}Base base) {
         ${ClassName} entity = BeanUtil.copyProperties(base, ${ClassName}.class);
         repository.save(entity);
@@ -124,6 +143,13 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         ${ClassName}Base old = this.getById(id);
         repository.deleteById(id);
         return old;
+        //${ClassName} old = repository.findByIdAndFlag(id, 0);
+        //if(old == null){
+            //return null;
+        //}
+        //old.setFlag(1);
+        //repository.save(old);
+        //return BeanUtil.copyProperties(old, ${ClassName}Base.class);
     }
 
     private ${ClassName}VO convertToVO(${ClassName} entity) {

@@ -13,11 +13,15 @@ public interface ${ClassName}Service {
 
     List<${ClassName}VO> list(${ClassName}Query query);
 
+    List<${ClassName}VO> listByIds(List<Long> ids);
+
     ${ClassName}Base getById(Long id);
 
     ${ClassName}VO getDetailById(Long id);
 
     ${ClassName}Base save(${ClassName}Base dto);
+
+    List<${ClassName}Base> saveBatch(List<${ClassName}Base> list);
 
     ${ClassName}Base update(${ClassName}Base dto);
 

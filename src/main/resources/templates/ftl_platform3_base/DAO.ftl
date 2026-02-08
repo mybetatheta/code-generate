@@ -11,5 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface ${ClassName}Repository extends JpaRepository<${ClassName}, Long>, JpaSpecificationExecutor<${ClassName}> {
 
+    //${ClassName} findByIdAndFlag(Long id, int flag);
 
 }
