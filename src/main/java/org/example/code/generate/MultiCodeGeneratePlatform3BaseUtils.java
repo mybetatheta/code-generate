@@ -51,7 +51,8 @@ public class MultiCodeGeneratePlatform3BaseUtils {
 
     /** 要生成代码的表名，多个用逗号分隔 */
 //    private String tableNames = "hm_meeting_room_type";
-    private String tableNames = "hm_meeting_device,hm_meeting_room_device_relation,hm_meeting_room_service_relation,hm_meeting_service";
+//    private String tableNames = "hm_meeting_device,hm_meeting_room_device_relation,hm_meeting_room_service_relation,hm_meeting_service";
+    private String tableNames = "hm_meeting_time";
 
     private String packageFolder = coverPackage2Folder(packageName);
 
@@ -145,6 +146,7 @@ public class MultiCodeGeneratePlatform3BaseUtils {
         generateEntityFile(dataMap);
         generateBaseDtoFile(dataMap);
         generateVOFile(dataMap);
+        generateSaveParamFile(dataMap);
         generateQueryFile(dataMap);  // 新增：生成Query类
         generateDaoFile(dataMap);
         generateServiceInterfaceFile(dataMap);
@@ -486,6 +488,18 @@ public class MultiCodeGeneratePlatform3BaseUtils {
 
         generateFileByTemplate("VO.ftl", new File(path), dataMap);
         System.out.println("生成 VO: " + className + "VO.java");
+    }
+
+    private void generateSaveParamFile(Map<String, Object> dataMap) throws Exception {
+
+        String folderPath = genFolder ? packageFolder + "/dto/" : "";
+        createPackageFolder(folderPath);
+
+        String className = (String) dataMap.get("ClassName");
+        String path = diskPath + folderPath + className + "SaveParam.java";
+
+        generateFileByTemplate("SaveParam.ftl", new File(path), dataMap);
+        System.out.println("生成 SaveParam: " + className + "SaveParam.java");
     }
 
     /**

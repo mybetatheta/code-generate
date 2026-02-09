@@ -3,6 +3,7 @@ package ${packageName}.controller;
 import com.zchg.platform.common.core.domain.R;
 import ${packageName}.dto.${ClassName}Base;
 import ${packageName}.dto.${ClassName}Query;
+import ${packageName}.dto.${ClassName}SaveParam;
 import ${packageName}.dto.${ClassName}VO;
 import ${packageName}.service.${ClassName}Service;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,8 +59,8 @@ public class ${ClassName}Controller {
 
     @Operation(summary = "新增")
     @PostMapping
-    public R<${ClassName}Base> save(@RequestBody ${ClassName}Base base) {
-        return R.ok(${classNameLower}Service.save(base));
+    public R<${ClassName}Base> save(@RequestBody ${ClassName}SaveParam saveParam) {
+        return R.ok(${classNameLower}Service.save(saveParam));
     }
 
     @Operation(summary = "修改")

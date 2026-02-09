@@ -2,6 +2,7 @@ package ${packageName}.service;
 
 import ${packageName}.dto.${ClassName}Base;
 import ${packageName}.dto.${ClassName}Query;
+import ${packageName}.dto.${ClassName}SaveParam;
 import ${packageName}.dto.${ClassName}VO;
 import org.springframework.data.domain.Page;
 
@@ -19,7 +20,7 @@ public interface ${ClassName}Service {
 
     ${ClassName}VO getDetailById(Long id);
 
-    ${ClassName}Base save(${ClassName}Base dto);
+    ${ClassName}Base save(${ClassName}SaveParam dto);
 
     List<${ClassName}Base> saveBatch(List<${ClassName}Base> list);
 

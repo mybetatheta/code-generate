@@ -11,6 +11,7 @@ import com.zchg.platform.common.datasource.utils.jpa.JpaSpecificationsUtils;
 import ${packageName}.dao.${ClassName}Repository;
 import ${packageName}.dto.${ClassName}Base;
 import ${packageName}.dto.${ClassName}Query;
+import ${packageName}.dto.${ClassName}SaveParam;
 import ${packageName}.dto.${ClassName}VO;
 import ${packageName}.entity.${ClassName};
 import ${packageName}.service.${ClassName}Service;
@@ -110,11 +111,12 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
     }
 
     @Override
-    public ${ClassName}Base save(${ClassName}Base base) {
-        if (base.getId() == null) {
-            base.setId(idGenerator.nextId());
+    @Transactional(rollbackFor = Exception.class)
+    public ${ClassName}Base save(${ClassName}SaveParam saveParam) {
+        if (saveParam.getId() == null) {
+            saveParam.setId(idGenerator.nextId());
         }
-        ${ClassName} entity = BeanUtil.copyProperties(base, ${ClassName}.class);
+        ${ClassName} entity = BeanUtil.copyProperties(saveParam, ${ClassName}.class);
         repository.save(entity);
         return BeanUtil.copyProperties(entity, ${ClassName}Base.class);
     }
