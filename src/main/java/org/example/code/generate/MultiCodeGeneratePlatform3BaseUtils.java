@@ -51,8 +51,9 @@ public class MultiCodeGeneratePlatform3BaseUtils {
 
     /** 要生成代码的表名，多个用逗号分隔 */
 //    private String tableNames = "hm_meeting_room_type";
-//    private String tableNames = "hm_meeting_device,hm_meeting_room_device_relation,hm_meeting_room_service_relation,hm_meeting_service";
-    private String tableNames = "hm_meeting_time";
+//    private String tableNames = "hm_meeting_device_config,hm_meeting_room_device_relation,hm_meeting_room_service_relation,hm_meeting_service_config";
+//    private String tableNames = "hm_meeting_time";
+    private String tableNames = "hm_meeting_device_order,hm_meeting_device_relation,hm_meeting_service_order,hm_meeting_service_relation";
 
     private String packageFolder = coverPackage2Folder(packageName);
 

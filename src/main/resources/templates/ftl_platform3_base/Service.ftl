@@ -20,7 +20,7 @@ public interface ${ClassName}Service {
 
     ${ClassName}VO getDetailById(Long id);
 
-    ${ClassName}Base save(${ClassName}SaveParam dto);
+    ${ClassName}Base save(${ClassName}Base dto);
 
     List<${ClassName}Base> saveBatch(List<${ClassName}Base> list);
 

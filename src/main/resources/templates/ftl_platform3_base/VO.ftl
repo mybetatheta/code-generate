@@ -8,7 +8,7 @@ import lombok.Data;
  * ${tableAnnotation} VO
  */
 @Data
-@Schema(description = "${tableAnnotation}")
+@Schema(description = "${tableAnnotation}VO")
 public class ${ClassName}VO extends ${ClassName}Base {
 
 

@@ -8,7 +8,7 @@ import lombok.Data;
  * ${tableAnnotation} SaveParam
  */
 @Data
-@Schema(description = "${tableAnnotation}")
+@Schema(description = "${tableAnnotation}SaveParam")
 public class ${ClassName}SaveParam extends ${ClassName}Base {
 
 

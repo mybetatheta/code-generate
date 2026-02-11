@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.func.LambdaUtil;
 import com.google.common.collect.Lists;
 import com.zchg.platform.common.core.constant.BaseProcessId;
+import com.zchg.platform.common.core.utils.AopProxyTargetUtils;
 import com.zchg.platform.common.core.utils.IdGenerator;
 import com.zchg.platform.common.core.utils.QueryHelp;
 import com.zchg.platform.common.datasource.utils.jpa.JpaSpecificationsUtils;
@@ -112,7 +113,7 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ${ClassName}Base save(${ClassName}SaveParam saveParam) {
+    public ${ClassName}Base save(${ClassName}Base saveParam) {
         if (saveParam.getId() == null) {
             saveParam.setId(idGenerator.nextId());
         }

@@ -59,7 +59,7 @@ public class ${ClassName}Controller {
 
     @Operation(summary = "新增")
     @PostMapping
-    public R<${ClassName}Base> save(@RequestBody ${ClassName}SaveParam saveParam) {
+    public R<${ClassName}Base> save(@RequestBody ${ClassName}Base saveParam) {
         return R.ok(${classNameLower}Service.save(saveParam));
     }
 
