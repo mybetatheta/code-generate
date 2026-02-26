@@ -571,16 +571,10 @@ public class MultiCodeGenerateMinUtils {
             return str;
         }
 
-        // 找到第一个下划线的位置
-        int firstUnderscoreIndex = str.indexOf('_');
+        // 定义要移除的固定前缀
+        String prefix = "clt_material_";
 
-        // 如果没有下划线，直接对原字符串做驼峰+首字母大写
-        if (firstUnderscoreIndex == -1) {
-            return StringUtils.capitalize(StringUtils.toCamelCase(str));
-        }
-
-        // 截取第一个下划线之后的部分
-        String substring = str.substring(firstUnderscoreIndex + 1);
+        String substring = StrUtil.replace(str, prefix, "");
 
         // 转驼峰并首字母大写
         return StringUtils.capitalize(StringUtils.toCamelCase(substring));
