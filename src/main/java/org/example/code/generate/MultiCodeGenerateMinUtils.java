@@ -93,7 +93,8 @@ public class MultiCodeGenerateMinUtils {
                     if (targetTables.contains(tableName)) {
                         System.out.println("正在生成表: " + tableName + " - " + tableAnnotation);
 
-                        String className = replaceUnderLineAndUpperCase(tableName);
+//                        String className = replaceUnderLineAndUpperCase(tableName);
+                        String className = tableNameToClassName(tableName);
                         generateTableCode(connection, databaseMetaData, tableName, className, tableAnnotation, currentSchema);
                     }
                 }
@@ -560,6 +561,29 @@ public class MultiCodeGenerateMinUtils {
      */
     public String replaceUnderLineAndUpperCase(String str) {
         return StringUtils.capitalize(StringUtils.toCamelCase(str));
+    }
+
+    /**
+     * 去除第一个下划线前的内容，然后转为驼峰并首字母大写
+     */
+    public String tableNameToClassName(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+
+        // 找到第一个下划线的位置
+        int firstUnderscoreIndex = str.indexOf('_');
+
+        // 如果没有下划线，直接对原字符串做驼峰+首字母大写
+        if (firstUnderscoreIndex == -1) {
+            return StringUtils.capitalize(StringUtils.toCamelCase(str));
+        }
+
+        // 截取第一个下划线之后的部分
+        String substring = str.substring(firstUnderscoreIndex + 1);
+
+        // 转驼峰并首字母大写
+        return StringUtils.capitalize(StringUtils.toCamelCase(substring));
     }
 
     /**
