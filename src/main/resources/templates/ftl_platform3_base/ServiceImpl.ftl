@@ -1,10 +1,12 @@
 package ${packageName}.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.func.LambdaUtil;
 import com.google.common.collect.Lists;
 import com.zchg.platform.common.core.constant.BaseProcessId;
+import com.zchg.platform.common.core.exception.ServiceException;
 import com.zchg.platform.common.core.utils.AopProxyTargetUtils;
 import com.zchg.platform.common.core.utils.IdGenerator;
 import com.zchg.platform.common.core.utils.QueryHelp;
@@ -90,6 +92,7 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
     @Override
     public ${ClassName}Base getById(Long id) {
         // 查询实体
+        // ${ClassName} entity = repository.findByIdAndFlag(id, 0);
         ${ClassName} entity = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("${ClassName} not found with id: " + id));
 
@@ -101,6 +104,7 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
     @Override
     public ${ClassName}VO getDetailById(Long id) {
         // 查询实体
+        // ${ClassName} entity = repository.findByIdAndFlag(id, 0);
         ${ClassName} entity = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("${ClassName} not found with id: " + id));
 
@@ -136,7 +140,13 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     @Override
     public ${ClassName}Base update(${ClassName}Base base) {
-        ${ClassName} entity = BeanUtil.copyProperties(base, ${ClassName}.class);
+        if(base.getId() == null){
+            throw new ServiceException("修改id不能为空");
+        }
+        ${ClassName} entity = BeanUtil.copyProperties(this.getById(base.getId()), ${ClassName}.class);
+        BeanUtil.copyProperties(base, entity, CopyOptions.create()
+                                                         .setIgnoreNullValue(true)
+                                                         .setIgnoreError(true));
         repository.save(entity);
         return BeanUtil.copyProperties(entity, ${ClassName}Base.class);
     }
