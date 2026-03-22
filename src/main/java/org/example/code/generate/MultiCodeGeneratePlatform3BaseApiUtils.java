@@ -6,7 +6,7 @@ import org.dromara.hutool.core.date.DateUtil;
 import org.dromara.hutool.core.regex.ReUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.example.code.generate.domain.GenTableColumn;
-import org.example.code.generate.utils.FreeMarkerTemplatePlatform3BaseUtils;
+import org.example.code.generate.utils.FreeMarkerTemplatePlatform3BaseApiUtils;
 import org.example.code.generate.utils.StringUtils;
 
 import java.io.BufferedWriter;
@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * 代码生成器 - 优化版
  */
-public class MultiCodeGeneratePlatform3BaseUtils {
+public class MultiCodeGeneratePlatform3BaseApiUtils {
 
     private final String AUTHOR = "zy";
     private final String CURRENT_DATE = DateUtil.formatDateTime(DateTime.now());
@@ -42,7 +42,11 @@ public class MultiCodeGeneratePlatform3BaseUtils {
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String diskPath = "D://test/";
 //    private final String packageName = "com.zchg.platform.service.center.visitor.management";
-    private final String packageName = "com.zchg.platform.service.center.meeting.management";
+//    private final String packageName = "com.zchg.platform.service.center.meeting.management";
+    private final String packageName = "com.zchg.platform.service.center.restaurant.management";
+//    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.visitor";
+//    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.meeting";
+    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.restaurant";
 
     /** 是否生成目录结构 */
     private boolean genFolder = true;
@@ -57,9 +61,14 @@ public class MultiCodeGeneratePlatform3BaseUtils {
 //    private String tableNames = "hv_visitor_extend_change";
 //    private String tableNames = "hm_meeting_room_dynamic_device_relation";
 //    private String tableNames = "hm_meeting_process_flow_detail,hm_meeting_process_flow_detail_device,hm_meeting_process_flow_detail_service";
-    private String tableNames = "hm_meeting_room_device_relation,hm_meeting_room_dynamic_device_relation,hm_meeting_room_pattern_relation";
+//    private String tableNames = "hm_meeting_feedback,hm_meeting_feedback_device,hm_meeting_feedback_service";
+//    private String tableNames = "hm_meeting_cancellation_policy";
+//    private String tableNames = "hr_dish_main,hr_menu_dish_ralation";
+    private String tableNames = "hr_restaurant_menu_relation,hr_restaurant_room_menu_relation";
+//    private String tableNames = "hr_cuisine_type,hr_dish_category,hr_dish_daily_inventory,hr_dish_option,hr_menu_main,hr_menu_type,hr_restaurant,hr_restaurant_room,hr_restaurant_space_relation,hr_restaurant_table";
 
     private String packageFolder = coverPackage2Folder(packageName);
+    private String apiDtoPackageFolder = coverPackage2Folder(apiDtoPackageName);
 
     public Connection getConnection() throws Exception {
         Class.forName(DRIVER);
@@ -77,7 +86,7 @@ public class MultiCodeGeneratePlatform3BaseUtils {
     }
 
     public static void main(String[] args) throws Exception {
-        MultiCodeGeneratePlatform3BaseUtils codeGenerateUtils = new MultiCodeGeneratePlatform3BaseUtils();
+        MultiCodeGeneratePlatform3BaseApiUtils codeGenerateUtils = new MultiCodeGeneratePlatform3BaseApiUtils();
         codeGenerateUtils.generate();
     }
 
@@ -143,6 +152,7 @@ public class MultiCodeGeneratePlatform3BaseUtils {
         dataMap.put("author", AUTHOR);
         dataMap.put("date", CURRENT_DATE);
         dataMap.put("packageName", packageName);
+        dataMap.put("apiDtoPackageName", apiDtoPackageName);
         dataMap.put("tableAnnotation", tableAnnotation);
         dataMap.put("tableColumns", columnClassList);
         dataMap.put("genBaseModel", genBaseModel);
@@ -473,7 +483,7 @@ public class MultiCodeGeneratePlatform3BaseUtils {
      * 生成 DTO 文件
      */
     private void generateBaseDtoFile(Map<String, Object> dataMap) throws Exception {
-        String folderPath = genFolder ? packageFolder + "/dto/" : "";
+        String folderPath = genFolder ? apiDtoPackageFolder + "/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
@@ -485,7 +495,7 @@ public class MultiCodeGeneratePlatform3BaseUtils {
 
     private void generateVOFile(Map<String, Object> dataMap) throws Exception {
 
-        String folderPath = genFolder ? packageFolder + "/dto/" : "";
+        String folderPath = genFolder ? apiDtoPackageFolder + "/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
@@ -497,7 +507,7 @@ public class MultiCodeGeneratePlatform3BaseUtils {
 
     private void generateSaveParamFile(Map<String, Object> dataMap) throws Exception {
 
-        String folderPath = genFolder ? packageFolder + "/dto/" : "";
+        String folderPath = genFolder ? apiDtoPackageFolder + "/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
@@ -511,7 +521,7 @@ public class MultiCodeGeneratePlatform3BaseUtils {
      * 生成 Query 查询类文件
      */
     private void generateQueryFile(Map<String, Object> dataMap) throws Exception {
-        String folderPath = genFolder ? packageFolder + "/dto/" : "";
+        String folderPath = genFolder ? apiDtoPackageFolder + "/" : "";
         createPackageFolder(folderPath);
 
         String className = (String) dataMap.get("ClassName");
@@ -582,7 +592,7 @@ public class MultiCodeGeneratePlatform3BaseUtils {
      */
     private void generateFileByTemplate(final String templateName, File file,
                                         Map<String, Object> dataMap) throws Exception {
-        Template template = FreeMarkerTemplatePlatform3BaseUtils.getTemplate(templateName);
+        Template template = FreeMarkerTemplatePlatform3BaseApiUtils.getTemplate(templateName);
 
         try (FileOutputStream fos = new FileOutputStream(file);
              Writer out = new BufferedWriter(new OutputStreamWriter(fos, "utf-8"), 10240)) {
