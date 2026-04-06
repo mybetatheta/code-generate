@@ -21,6 +21,8 @@ package ${packageName}.entity;
         </#if>
     </#if>
 </#list>
+import com.zchg.platform.common.core.utils.HyServletUtils;
+import com.zchg.platform.common.core.utils.WebFrameworkUtils;
 <#list dateImports as import>
 import ${import};
 </#list>
@@ -41,9 +43,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.Objects;
 /**
  *
  * ${tableAnnotation}实体类
@@ -68,6 +72,47 @@ public class ${ClassName} {
     nullable = false)
 	private ${model.fieldType} ${model.camelCaseColumnName?uncap_first};
 </#list>
+    <#assign hasCreateTime = false>
+    <#list tableColumns as column>
+        <#if column.camelCaseColumnName == "createTime">
+            <#assign hasCreateTime = true>
+            <#break>
+        </#if>
+    </#list>
+    <#assign hasCreateUserId = false>
+    <#list tableColumns as column>
+        <#if column.camelCaseColumnName == "createUserId">
+            <#assign hasCreateUserId = true>
+            <#break>
+        </#if>
+    </#list>
+    <#assign hasFlag = false>
+    <#list tableColumns as column>
+        <#if column.camelCaseColumnName == "flag">
+            <#assign hasFlag = true>
+            <#break>
+        </#if>
+    </#list>
+
+    @PrePersist
+    void initProperty() {
+    <#if hasCreateTime>
+        if(this.createTime == null){
+            this.createTime = System.currentTimeMillis();
+        }
+    </#if>
+    <#if hasCreateUserId>
+        if(this.createUserId == null){
+            this.createUserId = WebFrameworkUtils.getUserId(Objects.requireNonNull(HyServletUtils.getRequest()));
+        }
+    </#if>
+    <#if hasFlag>
+        if(this.flag == null){
+            this.flag = 0;
+        }
+    </#if>
+    }
+
 
 </#if>
 }

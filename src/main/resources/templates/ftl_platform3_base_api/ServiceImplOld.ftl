@@ -8,7 +8,6 @@ import com.google.common.collect.Lists;
 import com.zchg.platform.common.core.constant.BaseProcessId;
 import com.zchg.platform.common.core.exception.ServiceException;
 import com.zchg.platform.common.core.utils.AopProxyTargetUtils;
-import com.zchg.platform.common.core.utils.HyBeanUtils;
 import com.zchg.platform.common.core.utils.IdGenerator;
 import com.zchg.platform.common.core.utils.QueryHelp;
 import com.zchg.platform.common.datasource.utils.jpa.JpaSpecificationsUtils;
@@ -30,13 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-<#assign hasFlag = false>
-<#list tableColumns as column>
-    <#if column.camelCaseColumnName == "flag">
-        <#assign hasFlag = true>
-        <#break>
-    </#if>
-</#list>
 @Service
 @RequiredArgsConstructor
 public class ${ClassName}ServiceImpl implements ${ClassName}Service {
@@ -100,13 +92,9 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
     @Override
     public ${ClassName}Base getById(Long id) {
         // 查询实体
-    <#if hasFlag>
-        ${ClassName} entity = repository.findByIdAndFlag(id, 0);
-    </#if>
-    <#if !hasFlag>
+        // ${ClassName} entity = repository.findByIdAndFlag(id, 0);
         ${ClassName} entity = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("${ClassName} not found with id: " + id));
-    </#if>
 
         // 转换为VO
         ${ClassName}Base dto = BeanUtil.copyProperties(entity, ${ClassName}Base.class);
@@ -116,13 +104,9 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
     @Override
     public ${ClassName}VO getDetailById(Long id) {
         // 查询实体
-    <#if hasFlag>
-        ${ClassName} entity = repository.findByIdAndFlag(id, 0);
-    </#if>
-    <#if !hasFlag>
+        // ${ClassName} entity = repository.findByIdAndFlag(id, 0);
         ${ClassName} entity = repository.findById(id)
-        .orElseThrow(() -> new RuntimeException("${ClassName} not found with id: " + id));
-    </#if>
+            .orElseThrow(() -> new RuntimeException("${ClassName} not found with id: " + id));
 
         // 转换为VO
         ${ClassName}VO dto = BeanUtil.copyProperties(entity, ${ClassName}VO.class);
@@ -133,22 +117,13 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ${ClassName}Base save(${ClassName}Base base) {
-        ${ClassName} oldEntity = null;
-        if (base.getId() == null) {
-            base.setId(idGenerator.nextId());
-            oldEntity = new ${ClassName}();
-        }else{
-            ${ClassName}Base oldBase = this.getById(base.getId());
-            if(oldBase != null){
-                oldEntity = BeanUtil.copyProperties(oldBase, ${ClassName}.class);
-            }else{
-                oldEntity = new ${ClassName}();
-            }
+    public ${ClassName}Base save(${ClassName}Base saveParam) {
+        if (saveParam.getId() == null) {
+            saveParam.setId(idGenerator.nextId());
         }
-        HyBeanUtils.copyNotNullProperties(base, oldEntity);
-        ${ClassName} save = repository.save(oldEntity);
-        return BeanUtil.copyProperties(save, ${ClassName}Base.class);
+        ${ClassName} entity = BeanUtil.copyProperties(saveParam, ${ClassName}.class);
+        repository.save(entity);
+        return BeanUtil.copyProperties(entity, ${ClassName}Base.class);
     }
 
     @Override
@@ -163,23 +138,31 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         return resList;
     }
 
+    @Override
+    public ${ClassName}Base update(${ClassName}Base base) {
+        if(base.getId() == null){
+            throw new ServiceException("修改id不能为空");
+        }
+        ${ClassName} entity = BeanUtil.copyProperties(this.getById(base.getId()), ${ClassName}.class);
+        BeanUtil.copyProperties(base, entity, CopyOptions.create()
+                                                         .setIgnoreNullValue(true)
+                                                         .setIgnoreError(true));
+        repository.save(entity);
+        return BeanUtil.copyProperties(entity, ${ClassName}Base.class);
+    }
 
     @Override
     public ${ClassName}Base deleteById(Long id) {
-    <#if hasFlag>
-        ${ClassName} old = repository.findByIdAndFlag(id, 0);
-        if(old == null){
-        return null;
-        }
-        old.setFlag(1);
-        repository.save(old);
-        return BeanUtil.copyProperties(old, ${ClassName}Base.class);
-    </#if>
-    <#if !hasFlag>
         ${ClassName}Base old = this.getById(id);
         repository.deleteById(id);
         return old;
-    </#if>
+        //${ClassName} old = repository.findByIdAndFlag(id, 0);
+        //if(old == null){
+            //return null;
+        //}
+        //old.setFlag(1);
+        //repository.save(old);
+        //return BeanUtil.copyProperties(old, ${ClassName}Base.class);
     }
 
     private ${ClassName}VO convertToVO(${ClassName} entity) {

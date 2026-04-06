@@ -57,10 +57,16 @@ public class ${ClassName}Controller {
         return R.ok(${classNameLower}Service.getDetailById(id));
     }
 
-    @Operation(summary = "保存")
+    @Operation(summary = "新增")
     @PostMapping
     public R<${ClassName}Base> save(@RequestBody ${ClassName}Base saveParam) {
         return R.ok(${classNameLower}Service.save(saveParam));
+    }
+
+    @Operation(summary = "修改")
+    @PutMapping
+    public R<${ClassName}Base> update(@RequestBody ${ClassName}Base base) {
+        return R.ok(${classNameLower}Service.update(base));
     }
 
     @Operation(summary = "删除")

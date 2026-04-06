@@ -24,5 +24,7 @@ public interface ${ClassName}Service {
 
     List<${ClassName}Base> saveBatch(List<${ClassName}Base> list);
 
+    ${ClassName}Base update(${ClassName}Base dto);
+
     ${ClassName}Base deleteById(Long id);
 }

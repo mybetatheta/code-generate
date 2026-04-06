@@ -41,12 +41,13 @@ public class MultiCodeGeneratePlatform3BaseApiUtils {
     private final String PASSWORD = "root";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String diskPath = "D://test/";
-//    private final String packageName = "com.zchg.platform.service.center.visitor.management";
+    private final String packageName = "com.zchg.platform.service.center.visitor.management";
 //    private final String packageName = "com.zchg.platform.service.center.meeting.management";
-    private final String packageName = "com.zchg.platform.service.center.restaurant.management";
-//    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.visitor";
+//    private final String packageName = "com.zchg.platform.service.center.restaurant.management";
+
+    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.visitor";
 //    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.meeting";
-    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.restaurant";
+//    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.restaurant";
 
     /** 是否生成目录结构 */
     private boolean genFolder = true;
@@ -64,8 +65,15 @@ public class MultiCodeGeneratePlatform3BaseApiUtils {
 //    private String tableNames = "hm_meeting_feedback,hm_meeting_feedback_device,hm_meeting_feedback_service";
 //    private String tableNames = "hm_meeting_cancellation_policy";
 //    private String tableNames = "hr_dish_main,hr_menu_dish_ralation";
-    private String tableNames = "hr_restaurant_menu_relation,hr_restaurant_room_menu_relation";
+//    private String tableNames = "hr_restaurant_menu_relation,hr_restaurant_room_menu_relation";
+//    private String tableNames = "hr_restaurant_room_order,hr_restaurant_room_order_detail,hr_restaurant_room_order_user";
+//    private String tableNames = "hr_restaurant_weekly_menu";
 //    private String tableNames = "hr_cuisine_type,hr_dish_category,hr_dish_daily_inventory,hr_dish_option,hr_menu_main,hr_menu_type,hr_restaurant,hr_restaurant_room,hr_restaurant_space_relation,hr_restaurant_table";
+//    private String tableNames = "hv_parking_facilities,hv_parking_facilities_devices";
+//    private String tableNames = "hv_vehicle_apply_process_flow_detail,hv_visitor_process_flow_detail,hv_visitor_access_auth";
+//    private String tableNames = "hv_access_request_user,hv_access_request_user_device";
+//    private String tableNames = "hv_access_staff,hv_access_staff_device,hv_access_visitor,hv_access_visitor_device";
+    private String tableNames = "hv_visitor_auth_scope";
 
     private String packageFolder = coverPackage2Folder(packageName);
     private String apiDtoPackageFolder = coverPackage2Folder(apiDtoPackageName);
