@@ -41,13 +41,15 @@ public class MultiCodeGeneratePlatform3BaseApiUtils {
     private final String PASSWORD = "root";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String diskPath = "D://test/";
-    private final String packageName = "com.zchg.platform.service.center.visitor.management";
+//    private final String packageName = "com.zchg.platform.service.center.visitor.management";
 //    private final String packageName = "com.zchg.platform.service.center.meeting.management";
 //    private final String packageName = "com.zchg.platform.service.center.restaurant.management";
+    private final String packageName = "com.zchg.platform.service.center.operating.management";
 
-    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.visitor";
+//    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.visitor";
 //    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.meeting";
 //    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.restaurant";
+    private final String apiDtoPackageName = "com.zchg.platform.service.center.api.dto.operating";
 
     /** 是否生成目录结构 */
     private boolean genFolder = true;
@@ -73,7 +75,9 @@ public class MultiCodeGeneratePlatform3BaseApiUtils {
 //    private String tableNames = "hv_vehicle_apply_process_flow_detail,hv_visitor_process_flow_detail,hv_visitor_access_auth";
 //    private String tableNames = "hv_access_request_user,hv_access_request_user_device";
 //    private String tableNames = "hv_access_staff,hv_access_staff_device,hv_access_visitor,hv_access_visitor_device";
-    private String tableNames = "hv_visitor_auth_scope";
+//    private String tableNames = "hv_visitor_auth_scope";
+//    private String tableNames = "hy_admin_service_station";
+    private String tableNames = "hy_rent_goods,hy_rent_goods_sub,hy_rent_goods_sub_cal_day,hy_rent_goods_sub_cal_month,hy_rent_goods_sub_cal_year,hy_rent_goods_type";
 
     private String packageFolder = coverPackage2Folder(packageName);
     private String apiDtoPackageFolder = coverPackage2Folder(apiDtoPackageName);

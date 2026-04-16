@@ -141,7 +141,9 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         }else{
             ${ClassName}Base oldBase = this.getById(base.getId());
             if(oldBase != null){
-                oldEntity = BeanUtil.copyProperties(oldBase, ${ClassName}.class);
+                oldEntity = new ${ClassName}();
+                HyBeanUtils.copyNotNullProperties(oldBase,oldEntity);
+<#--                oldEntity = BeanUtil.copyProperties(oldBase, ${ClassName}.class);-->
             }else{
                 oldEntity = new ${ClassName}();
             }
