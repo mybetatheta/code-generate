@@ -76,8 +76,9 @@ public class MultiCodeGeneratePlatform3BaseApiUtils {
 //    private String tableNames = "hv_access_request_user,hv_access_request_user_device";
 //    private String tableNames = "hv_access_staff,hv_access_staff_device,hv_access_visitor,hv_access_visitor_device";
 //    private String tableNames = "hv_visitor_auth_scope";
-//    private String tableNames = "hy_admin_service_station";
-    private String tableNames = "hy_rent_goods,hy_rent_goods_sub,hy_rent_goods_sub_cal_day,hy_rent_goods_sub_cal_month,hy_rent_goods_sub_cal_year,hy_rent_goods_type";
+//    private String tableNames = "hy_office_service_info";
+    private String tableNames = "hy_complaint_suggestion";
+//    private String tableNames = "hy_rent_goods,hy_rent_goods_sub,hy_rent_goods_sub_cal_day,hy_rent_goods_sub_cal_month,hy_rent_goods_sub_cal_year,hy_rent_goods_type";
 
     private String packageFolder = coverPackage2Folder(packageName);
     private String apiDtoPackageFolder = coverPackage2Folder(apiDtoPackageName);

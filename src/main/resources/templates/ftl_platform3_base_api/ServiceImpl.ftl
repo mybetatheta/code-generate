@@ -81,6 +81,9 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     @Override
     public List<${ClassName}VO> listByIds(List<Long> ids) {
+        if(CollUtil.isEmpty(ids)){
+            return Lists.newArrayList();
+        }
         ${ClassName}Query query = new ${ClassName}Query();
         query.setIds(ids);
         return list(query);
@@ -104,8 +107,11 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         ${ClassName} entity = repository.findByIdAndFlag(id, 0);
     </#if>
     <#if !hasFlag>
-        ${ClassName} entity = repository.findById(id)
-            .orElseThrow(() -> new RuntimeException("${ClassName} not found with id: " + id));
+        Optional<${ClassName}> byId = repository.findById(id);
+        if(byId.isEmpty()){
+            return null;
+        }
+        ${ClassName} entity = byId.get();
     </#if>
 
         // 转换为VO
@@ -120,8 +126,11 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         ${ClassName} entity = repository.findByIdAndFlag(id, 0);
     </#if>
     <#if !hasFlag>
-        ${ClassName} entity = repository.findById(id)
-        .orElseThrow(() -> new RuntimeException("${ClassName} not found with id: " + id));
+        Optional<${ClassName}> byId = repository.findById(id);
+        if(byId.isEmpty()){
+            return null;
+        }
+        ${ClassName} entity = byId.get();
     </#if>
 
         // 转换为VO
